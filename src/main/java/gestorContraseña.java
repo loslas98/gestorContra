@@ -73,8 +73,12 @@ public class gestorContraseña {
         System.out.println("Elija la contraseña que quiere ver por medio de numero de indice");
         Scanner teclado = new Scanner(System.in);
         int opcion = teclado.nextInt()-1;
-        datosApp dato = datos.get(opcion);
-        System.out.println("La contraseña para la aplicacion "+dato.getNombreApp()+" es " + dato.getContra());
+        if(validarOpcion(datos,opcion)){
+            datosApp dato = datos.get(opcion);
+            System.out.println("La contraseña para la aplicacion "+dato.getNombreApp()+" es " + dato.getContra());
+        }
+
+
     }
 
     public void crearContra(){
@@ -88,25 +92,38 @@ public class gestorContraseña {
         datosApp datoAagregar = new datosApp(correo,contraseña,app );
         datos.add(datoAagregar);
     }
+    public boolean validarOpcion(ArrayList<datosApp> datos,int opcion){
+        try {
+            datosApp dato = datos.get(opcion);
+        }catch (IndexOutOfBoundsException e){
+            System.out.println("Numero de indice no existe");
+            return false;
+        }
+        return true;
+    }
 
     public void actualizarContra(){
         System.out.println("Ingrese la contraseña a actualizar por medio de numero de indice");
         Scanner teclado = new Scanner(System.in);
         int opcion = teclado.nextInt()-1;
-        System.out.println("Ingrese la nueva contraseña");
-        String nuevaContra = teclado.next();
-        datosApp dato = datos.get(opcion);
-        datos.remove(opcion);
-        dato.setContra(nuevaContra);
-        datos.add(opcion,dato);
+        if (validarOpcion(datos,opcion)){
+            System.out.println("Ingrese la nueva contraseña");
+            String nuevaContra = teclado.next();
+            datosApp dato = datos.get(opcion);
+            datos.remove(opcion);
+            dato.setContra(nuevaContra);
+            datos.add(opcion,dato);
+        }
 
     }
     public void eliminarContra(){
         System.out.println("Ingrese la contraseña a eliminar por medio del numero de indice");
         Scanner teclado = new Scanner(System.in);
         int opcion = teclado.nextInt()-1;
-        datos.remove(opcion);
-        System.out.println("Eliminacion de datos finalizada");
+        if(validarOpcion(datos,opcion)){
+            datos.remove(opcion);
+            System.out.println("Eliminacion de datos finalizada");
+        }
     }
 
     @Override
@@ -115,3 +132,6 @@ public class gestorContraseña {
     }
 
 }
+
+
+
