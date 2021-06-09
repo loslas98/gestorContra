@@ -8,7 +8,7 @@ public class Contraseña {
     public String checkContra(){
         if(checkLetras() && checkMayus() && checkLargo() && checkNumeros()){
             return "contraseña segura";
-        }else if((checkNumeros() && checkLetras()) || (checkNumeros() && checkMayus()) || (checkNumeros() && checkMayus())){
+        }else if((checkNumeros() && checkLetras()) || (checkNumeros() && checkMayus()) || (checkLetras() && checkMayus())){
             return "contraseña moderada";
         }else{
             return "contraseña insegura";
